@@ -1,4 +1,6 @@
+import 'package:coffee_app/styled_button.dart';
 import 'package:flutter/material.dart';
+import 'button_functions.dart';
 
 class CoffeePrefs extends StatefulWidget {
   const CoffeePrefs({super.key});
@@ -11,63 +13,37 @@ class _CoffeePrefsState extends State<CoffeePrefs> {
   int strength = 1;
   int sugar = 1;
 
-  void increaseStrength() {
-    setState(() {
-      strength = strength < 5 ? strength + 1 : 1;
-    });
-  }
-
-  void decreaseStrength() {
-    setState(() {
-      strength = strength > 1 ? strength - 1 : 1;
-    });
-  }
-
-  void increaseSugar() {
-    setState(() {
-      sugar = sugar < 5 ? sugar + 1 : 0;
-    });
-  }
-
-  void decreaseSugar() {
-    setState(() {
-      sugar = sugar > 0 ? sugar - 1 : 0;
-    });
-  }
-
   @override
   Widget build(BuildContext context) {
+    var buttonFunctions = ButtonFunctions(strength: strength, sugar: sugar);
     return Column(
       children: [
         Row(
           children: [
             Text('Coffee Strength: '),
-            Text('$strength'),
-            Image.asset(
-              'assets/img/coffee_bean.png',
-              width: 20.0,
-              color: Colors.brown[100],
-              colorBlendMode: BlendMode.multiply,
-            ),
-            Expanded(child: SizedBox()),
-            FilledButton(
-              style: FilledButton.styleFrom(
-                backgroundColor: Colors.brown,
-                foregroundColor: Colors.white,
+            for (int i = 0; i < strength; i++)
+              Image.asset(
+                'assets/img/coffee_bean.png',
+                width: 20.0,
+                color: Colors.brown[100],
+                colorBlendMode: BlendMode.multiply,
               ),
+            Expanded(child: SizedBox()),
+            StyledButton(
               onPressed: () {
-                decreaseStrength();
+                setState(() {
+                  buttonFunctions.decreaseStrength();
+                  strength = buttonFunctions.strength;
+                });
               },
               child: Icon(Icons.remove),
             ),
-            SizedBox(width: 10),
-            FilledButton(
-              style: FilledButton.styleFrom(
-                backgroundColor: Colors.brown,
-                foregroundColor: Colors.white,
-              ),
+            StyledButton(
               onPressed: () {
-                increaseStrength();
+                setState(() {
+                  buttonFunctions.increaseStrength();
+                  strength = buttonFunctions.strength;
+                });
               },
               child: Icon(Icons.add),
             ),
@@ -76,32 +52,31 @@ class _CoffeePrefsState extends State<CoffeePrefs> {
         Row(
           children: [
             Text('Sugar Cubes: '),
-            Text('$sugar'),
-            Image.asset(
-              'assets/img/sugar_cube.png',
-              width: 20.0,
-              color: Colors.brown[100],
-              colorBlendMode: BlendMode.multiply,
-            ),
-            Expanded(child: SizedBox()),
-            FilledButton(
-              style: FilledButton.styleFrom(
-                backgroundColor: Colors.brown,
-                foregroundColor: Colors.white,
+            if (sugar == 0)
+              Text('No Sugar', style: TextStyle(color: Colors.red)),
+            for (int i = 0; i < sugar; i++)
+              Image.asset(
+                'assets/img/sugar_cube.png',
+                width: 20.0,
+                color: Colors.brown[100],
+                colorBlendMode: BlendMode.multiply,
               ),
+            Expanded(child: SizedBox()),
+            StyledButton(
               onPressed: () {
-                decreaseSugar();
+                setState(() {
+                  buttonFunctions.decreaseSugar();
+                  sugar = buttonFunctions.sugar;
+                });
               },
               child: Icon(Icons.remove),
             ),
-            SizedBox(width: 10),
-            FilledButton(
-              style: FilledButton.styleFrom(
-                backgroundColor: Colors.brown,
-                foregroundColor: Colors.white,
-              ),
+            StyledButton(
               onPressed: () {
-                increaseSugar();
+                setState(() {
+                  buttonFunctions.increaseSugar();
+                  sugar = buttonFunctions.sugar;
+                });
               },
               child: Icon(Icons.add),
             ),
