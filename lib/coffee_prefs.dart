@@ -1,7 +1,39 @@
 import 'package:flutter/material.dart';
 
-class CoffeePrefs extends StatelessWidget {
+class CoffeePrefs extends StatefulWidget {
   const CoffeePrefs({super.key});
+
+  @override
+  State<CoffeePrefs> createState() => _CoffeePrefsState();
+}
+
+class _CoffeePrefsState extends State<CoffeePrefs> {
+  int strength = 1;
+  int sugar = 1;
+
+  void increaseStrength() {
+    setState(() {
+      strength = strength < 5 ? strength + 1 : 1;
+    });
+  }
+
+  void decreaseStrength() {
+    setState(() {
+      strength = strength > 1 ? strength - 1 : 1;
+    });
+  }
+
+  void increaseSugar() {
+    setState(() {
+      sugar = sugar < 5 ? sugar + 1 : 0;
+    });
+  }
+
+  void decreaseSugar() {
+    setState(() {
+      sugar = sugar > 0 ? sugar - 1 : 0;
+    });
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -10,7 +42,7 @@ class CoffeePrefs extends StatelessWidget {
         Row(
           children: [
             Text('Coffee Strength: '),
-            Text('3'),
+            Text('$strength'),
             Image.asset(
               'assets/img/coffee_bean.png',
               width: 20.0,
@@ -24,7 +56,7 @@ class CoffeePrefs extends StatelessWidget {
                 foregroundColor: Colors.white,
               ),
               onPressed: () {
-                //sda
+                decreaseStrength();
               },
               child: Icon(Icons.remove),
             ),
@@ -35,7 +67,7 @@ class CoffeePrefs extends StatelessWidget {
                 foregroundColor: Colors.white,
               ),
               onPressed: () {
-                //sda
+                increaseStrength();
               },
               child: Icon(Icons.add),
             ),
@@ -44,7 +76,7 @@ class CoffeePrefs extends StatelessWidget {
         Row(
           children: [
             Text('Sugar Cubes: '),
-            Text('3'),
+            Text('$sugar'),
             Image.asset(
               'assets/img/sugar_cube.png',
               width: 20.0,
@@ -58,7 +90,7 @@ class CoffeePrefs extends StatelessWidget {
                 foregroundColor: Colors.white,
               ),
               onPressed: () {
-                //sda
+                decreaseSugar();
               },
               child: Icon(Icons.remove),
             ),
@@ -69,7 +101,7 @@ class CoffeePrefs extends StatelessWidget {
                 foregroundColor: Colors.white,
               ),
               onPressed: () {
-                //sda
+                increaseSugar();
               },
               child: Icon(Icons.add),
             ),

@@ -14,6 +14,14 @@ class Home extends StatelessWidget {
         ),
         centerTitle: true,
         backgroundColor: Colors.brown[700],
+        actions: [
+          IconButton(
+            onPressed: () {
+              //Do Something
+            },
+            icon: Icon(Icons.menu, color: Colors.white),
+          ),
+        ],
       ),
       body: Column(
         crossAxisAlignment: CrossAxisAlignment.stretch,
@@ -21,7 +29,11 @@ class Home extends StatelessWidget {
           Container(
             color: Colors.brown[200],
             padding: const EdgeInsets.all(20),
-            child: Text('How I like my coffee...'),
+            child: Text(
+              'How I like my coffee...',
+              textAlign: TextAlign.center,
+              style: TextStyle(fontSize: 20.0, fontWeight: FontWeight.w400),
+            ),
           ),
           Container(
             color: Colors.brown[100],
